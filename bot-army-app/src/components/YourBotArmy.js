@@ -31,4 +31,3 @@ const YourBotArmy = ({ bots, releaseBot, dischargeBot }) => {
 };
 
 export default YourBotArmy;
-
