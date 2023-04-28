@@ -1,7 +1,8 @@
-import React from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import BotCollection from './components/BotCollection';
 import YourBotArmy from './components/YourBotArmy';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   const [army, setArmy] = useState([]);
@@ -30,6 +31,20 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    // Fetch initial bot data from the server
+    const fetchBots = async () => {
+      try {
+        const response = await axios.get('http://localhost:8001/bots');
+        setArmy(response.data);
+      } catch (error) {
+        console.error('Error fetching bots:', error);
+      }
+    };
+
+    fetchBots();
+  }, []);
+
   return (
     <div>
       <BotCollection onAddToArmy={addToArmy} />
@@ -38,9 +53,11 @@ function App() {
         onReleaseFromArmy={releaseFromArmy}
         onDischarge={dischargeBot}
       />
+      <Router>
+        <div>{/* Routes go here */}</div>
+      </Router>
     </div>
   );
 }
-
 
 export default App;
