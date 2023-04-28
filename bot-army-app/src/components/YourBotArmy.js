@@ -1,21 +1,28 @@
 import React from 'react';
 
-const YourBotArmy = ({ bots, releaseBot }) => {
+const YourBotArmy = ({ bots, releaseBot, dischargeBot }) => {
   const handleBotRelease = (bot) => {
     releaseBot(bot);
+  };
+
+  const handleBotDischarge = (bot) => {
+    dischargeBot(bot);
   };
 
   return (
     <div>
       <h2>Your Bot Army</h2>
-      <div>
+      <div className="your-bot-army">
         {bots.map((bot) => (
-          <div key={bot.id}>
+          <div className="bot-card" key={bot.id}>
             <h3>{bot.name}</h3>
             <p>Health: {bot.health}</p>
             <p>Damage: {bot.damage}</p>
             <p>Armor: {bot.armor}</p>
             <button onClick={() => handleBotRelease(bot)}>Release</button>
+            <button className="discharge-btn" onClick={() => handleBotDischarge(bot)}>
+              Discharge
+            </button>
           </div>
         ))}
       </div>
@@ -24,3 +31,4 @@ const YourBotArmy = ({ bots, releaseBot }) => {
 };
 
 export default YourBotArmy;
+

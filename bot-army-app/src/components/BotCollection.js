@@ -24,9 +24,9 @@ const BotCollection = ({ addToArmy }) => {
   return (
     <div>
       <h2>Bot Collection</h2>
-      <div>
+      <div className="bot-collection">
         {bots.map((bot) => (
-          <div key={bot.id}>
+          <div className="bot-card" key={bot.id}>
             <h3>{bot.name}</h3>
             <p>Health: {bot.health}</p>
             <p>Damage: {bot.damage}</p>
