@@ -1,42 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const BotCollection = ({ addToArmy }) => {
-  const [bots, setBots] = useState([]);
-
-  useEffect(() => {
-    const fetchBots = async () => {
-      try {
-        const response = await fetch('http://localhost:8001/bots');
-        const data = await response.json();
-        setBots(data);
-      } catch (error) {
-        console.error('Error fetching bots:', error);
-      }
-    };
-
-    fetchBots();
-  }, []);
-
-  const handleBotSelection = (bot) => {
-    addToArmy(bot);
-  };
-
-  return (
-    <div>
-      <h2>Bot Collection</h2>
-      <div className="bot-collection">
+function BotCollection() {
+    const [bots, setBots] = useState([]);
+  
+    useEffect(() => {
+      // Fetch bot data from the server
+      const fetchBots = async () => {
+        try {
+          const response = await axios.get('http://localhost:8001/bots');
+          setBots(response.data);
+        } catch (error) {
+          console.error('Error fetching bots:', error);
+        }
+      };
+  
+      fetchBots();
+    }, []);
+  
+    return (
+      <div>
+        <h2>Bot Collection</h2>
+        {/* Render the list of bots */}
         {bots.map((bot) => (
-          <div className="bot-card" key={bot.id}>
-            <h3>{bot.name}</h3>
-            <p>Health: {bot.health}</p>
-            <p>Damage: {bot.damage}</p>
-            <p>Armor: {bot.armor}</p>
-            <button onClick={() => handleBotSelection(bot)}>Select</button>
-          </div>
+          <Bot key={bot.id} bot={bot} />
         ))}
       </div>
-    </div>
-  );
-};
-
-export default BotCollection;
+    );
+  }
+  
+  export default BotCollection;
+  
