@@ -1,5 +1,8 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import BotCollection from './components/BotCollection';
+import YourBotArmy from './components/YourBotArmy';
 
 function App() {
   return (
@@ -18,6 +21,8 @@ function App() {
           Learn React
         </a>
       </header>
+      <BotCollection />
+      <YourBotArmy />
     </div>
   );
 }
