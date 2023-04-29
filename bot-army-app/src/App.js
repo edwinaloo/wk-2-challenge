@@ -30,7 +30,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <h1>Bot Battlr</h1>
+      <h1>Bot Showdown</h1>
       <div className="bot-section">
         <BotCollection onAddToArmy={addToArmy} />
         <YourBotArmy
