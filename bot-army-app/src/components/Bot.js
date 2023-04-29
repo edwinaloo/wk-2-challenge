@@ -1,35 +1,37 @@
-import React from "react";
-import YourBotArmy from "./YourBotArmy";
+// Bot.js
+import React from 'react';
 
-function Bot({ bot, onAddToArmy }) {
+const Bot = ({ bot, onAddToArmy, onReleaseFromArmy, onDischarge }) => {
+  const { id, name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
+
   const handleAddToArmy = () => {
     onAddToArmy(bot);
   };
 
-  // Placeholder values or functions
-  const yourArmyArray = []; // Replace with the actual array containing the bots in your army
-  const handleReleaseFromArmy = (bot) => {
-    // Handle release logic
+  const handleReleaseFromArmy = () => {
+    onReleaseFromArmy(bot);
   };
-  const handleDischarge = (bot) => {
-    // Handle discharge logic
+
+  const handleDischarge = () => {
+    onDischarge(bot);
   };
 
   return (
-    <div>
-      <h3>{bot.name}</h3>
-      {/* Other bot details */}
+    <div className="bot-card">
+      <img src={avatar_url} alt={name} />
+      <h2>{name}</h2>
+      <p>Class: {bot_class}</p>
+      <p>Health: {health}</p>
+      <p>Damage: {damage}</p>
+      <p>Armor: {armor}</p>
+      <p>Catchphrase: {catchphrase}</p>
       <button onClick={handleAddToArmy}>Add to Army</button>
-
-      {/* Render the YourBotArmy component */}
-      <YourBotArmy
-        army={yourArmyArray}
-        onReleaseFromArmy={handleReleaseFromArmy}
-        onDischarge={handleDischarge}
-      />
+      <button onClick={handleReleaseFromArmy}>Release from Army</button>
+      <button onClick={handleDischarge} className="red-button">
+        Discharge
+      </button>
     </div>
   );
-}
+};
 
 export default Bot;
-

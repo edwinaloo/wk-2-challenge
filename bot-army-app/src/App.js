@@ -1,39 +1,46 @@
+// App.js
 import React, { useState } from 'react';
-import BotCollection from './BotCollection';
-import YourBotArmy from './YourBotArmy';
+import BotCollection from './components/BotCollection';
+import YourBotArmy from './components/YourBotArmy';
 
 const App = () => {
   const [army, setArmy] = useState([]);
 
   const addToArmy = (bot) => {
-    if (!army.find(b => b.id === bot.id)) {
-      setArmy(prevArmy => [...prevArmy, bot]);
+    if (!army.includes(bot)) {
+      setArmy([...army, bot]);
     }
   };
 
-  const releaseBot = (bot) => {
-    setArmy(prevArmy => prevArmy.filter(b => b.id !== bot.id));
+  const releaseFromArmy = (bot) => {
+    const updatedArmy = army.filter((b) => b.id !== bot.id);
+    setArmy(updatedArmy);
   };
 
-  const dischargeBot = (bot) => {
-    fetch(`http://localhost:8001/bots/${bot.id}`, {
-      method: 'DELETE'
-    })
-      .then(() => {
-        setArmy(prevArmy => prevArmy.filter(b => b.id !== bot.id));
-      })
-      .catch(error => console.error('Error discharging bot:', error));
+  const dischargeBot = async (bot) => {
+    try {
+      await fetch(`http://localhost:3000/bots/${bot.id}`, {
+        method: 'DELETE',
+      });
+      releaseFromArmy(bot);
+    } catch (error) {
+      console.log('Error discharging bot:', error);
+    }
   };
 
   return (
-    <div>
+    <div className="app">
       <h1>Bot Battlr</h1>
-      <BotCollection addToArmy={addToArmy} />
-      <YourBotArmy army={army} releaseBot={releaseBot} dischargeBot={dischargeBot} />
+      <div className="bot-section">
+        <BotCollection onAddToArmy={addToArmy} />
+        <YourBotArmy
+          army={army}
+          onReleaseFromArmy={releaseFromArmy}
+          onDischarge={dischargeBot}
+        />
+      </div>
     </div>
   );
 };
 
 export default App;
-
-

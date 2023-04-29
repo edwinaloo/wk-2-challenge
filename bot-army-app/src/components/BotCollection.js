@@ -1,35 +1,35 @@
-import React, { useState, useEffect } from 'react';
+// BotCollection.js
+import React, { useEffect, useState } from 'react';
+import Bot from './Bot';
 
-const BotCollection = ({ addToArmy }) => {
+const BotCollection = ({ onAddToArmy }) => {
   const [bots, setBots] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8001/bots')
-      .then(response => response.json())
-      .then(data => setBots(data))
-      .catch(error => console.error('Error fetching bots:', error));
+    const fetchBots = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/bots');
+        const data = await response.json();
+        setBots(data);
+      } catch (error) {
+        console.log('Error fetching bots:', error);
+      }
+    };
+
+    fetchBots();
   }, []);
 
-  const handleAddToArmy = (bot) => {
-    addToArmy(bot);
-  };
-
   return (
-    <div>
+    <div className="bot-collection">
       <h2>Bot Collection</h2>
-      <ul>
-        {bots.map(bot => (
-          <li key={bot.id} onClick={() => handleAddToArmy(bot)}>
-            <img src={bot.avatar_url} alt={bot.name} />
-            <p>{bot.name}</p>
-          </li>
-        ))}
-      </ul>
+      {bots.map((bot) => (
+        <div key={bot.id} className="bot-card">
+          <Bot bot={bot} onAddToArmy={onAddToArmy} />
+        </div>
+      ))}
     </div>
   );
 };
 
 export default BotCollection;
-
-
 
