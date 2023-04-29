@@ -1,33 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Bot from './Bot';
+import React, { useState, useEffect } from 'react';
 
-function BotCollection() {
+const BotCollection = ({ addToArmy }) => {
   const [bots, setBots] = useState([]);
 
   useEffect(() => {
-    // Fetch bot data from the server
-    const fetchBots = async () => {
-      try {
-        const response = await axios.get('http://localhost:8001/bots');
-        setBots(response.data);
-      } catch (error) {
-        console.error('Error fetching bots:', error);
-      }
-    };
-
-    fetchBots();
+    fetch('http://localhost:8001/bots')
+      .then(response => response.json())
+      .then(data => setBots(data))
+      .catch(error => console.error('Error fetching bots:', error));
   }, []);
+
+  const handleAddToArmy = (bot) => {
+    addToArmy(bot);
+  };
 
   return (
     <div>
       <h2>Bot Collection</h2>
-      {bots.map((bot) => (
-        <Bot key={bot.id} bot={bot} />
-      ))}
+      <ul>
+        {bots.map(bot => (
+          <li key={bot.id} onClick={() => handleAddToArmy(bot)}>
+            <img src={bot.avatar_url} alt={bot.name} />
+            <p>{bot.name}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default BotCollection;
+
+
 
