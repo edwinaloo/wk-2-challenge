@@ -64,3 +64,13 @@
   border-radius: 3px;
   cursor: pointer;
 }
+
+.bot-collection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bot-card {
+  margin: 10px;
+}
