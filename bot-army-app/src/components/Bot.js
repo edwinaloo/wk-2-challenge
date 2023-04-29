@@ -1,19 +1,39 @@
 // Bot.js
 import React from 'react';
 
-const Bot = ({ bot, onAddToArmy, onReleaseFromArmy, onDischarge }) => {
-  const { id, name, health, damage, armor, bot_class, catchphrase, avatar_url } = bot;
+const Bot = ({
+  bot,
+  onAddToArmy,
+  onReleaseFromArmy,
+  onDischarge
+}) => {
+  const {
+    id,
+    name,
+    health,
+    damage,
+    armor,
+    bot_class,
+    catchphrase,
+    avatar_url
+  } = bot;
 
   const handleAddToArmy = () => {
-    onAddToArmy(bot);
+    if (onAddToArmy) {
+      onAddToArmy(bot);
+    }
   };
 
   const handleReleaseFromArmy = () => {
-    onReleaseFromArmy(bot);
+    if (onReleaseFromArmy) {
+      onReleaseFromArmy(bot);
+    }
   };
 
   const handleDischarge = () => {
-    onDischarge(bot);
+    if (onDischarge) {
+      onDischarge(bot);
+    }
   };
 
   return (
@@ -25,13 +45,20 @@ const Bot = ({ bot, onAddToArmy, onReleaseFromArmy, onDischarge }) => {
       <p>Damage: {damage}</p>
       <p>Armor: {armor}</p>
       <p>Catchphrase: {catchphrase}</p>
-      <button onClick={handleAddToArmy}>Add to Army</button>
-      <button onClick={handleReleaseFromArmy}>Release from Army</button>
-      <button onClick={handleDischarge} className="red-button">
-        Discharge
-      </button>
+      {onAddToArmy && (
+        <button onClick={handleAddToArmy}>Add to Army</button>
+      )}
+      {onReleaseFromArmy && (
+        <button onClick={handleReleaseFromArmy}>Release from Army</button>
+      )}
+      {onDischarge && (
+        <button onClick={handleDischarge} className="red-button">
+          Discharge
+        </button>
+      )}
     </div>
   );
 };
 
 export default Bot;
+

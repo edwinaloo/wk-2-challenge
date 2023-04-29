@@ -2,6 +2,7 @@
 import React from 'react';
 import Bot from './Bot';
 
+
 const YourBotArmy = ({ army, onReleaseFromArmy, onDischarge }) => {
   const handleReleaseFromArmy = (bot) => {
     onReleaseFromArmy(bot);
