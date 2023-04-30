@@ -21,7 +21,7 @@ const App = () => {
 
   const dischargeBot = async (bot) => {
     try {
-      await fetch(` http://localhost:8001/bots/${bot.id}`, {
+      await fetch(` http://localhost:8000/bots/${bot.id}`, {
         method: 'DELETE',
       });
       releaseFromArmy(bot);

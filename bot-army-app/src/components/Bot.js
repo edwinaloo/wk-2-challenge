@@ -8,7 +8,6 @@ const Bot = ({
   onDischarge
 }) => {
   const {
-    id,
     name,
     health,
     damage,
