@@ -10,7 +10,7 @@ const BotCollection = ({ onAddToArmy }) => {
   useEffect(() => {
     const fetchBots = async () => {
       try {
-        const response = await fetch(' http://localhost:8000/bots');
+        const response = await fetch(' http://localhost:8001/bots');
         const data = await response.json();
         setBots(data);
       } catch (error) {
